@@ -10,6 +10,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class DriverTest {
 
     @Test
+    @DisplayName("Testing add item function")
+    void addItem() {
+        List<Item> inventory = new ArrayList<>();
+        assertEquals(0, inventory.size());
+        //test if item successfully added
+        Driver.addItem(inventory, "Phone", 50,100);
+        Driver.addItem(inventory, "Mug", 100,20);
+        Driver.addItem(inventory, "Sticker", 20,5);
+        assertEquals(3, inventory.size());
+    }
+
+    @Test
+    @DisplayName("Adding duplicate item")
+    void addDuplicateItem() {
+        List<Item> inventory = new ArrayList<>();
+        Driver.addItem(inventory, "Phone", 50,100);
+        assertEquals(1, inventory.size());
+        Driver.addItem(inventory, "Phone", 50,100);
+        assertEquals(1, inventory.size());
+    }
+
+
+    @Test
     @DisplayName("Test Buy Item Function")
     void buyItem() {
         List<Item> inventory = new ArrayList<>();
