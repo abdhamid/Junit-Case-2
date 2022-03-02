@@ -34,8 +34,6 @@ public class Driver {
                     System.out.println("Enter item points : ");
                     int itemPoint = scanner.nextInt();
                     addItem(inventory, name, itemStock, itemPoint);
-//                    addItem(inventory, "Phone", 100,10);
-//                    System.out.println("Item Added");
                     break;
                 }
                 case 2 : {
@@ -130,12 +128,14 @@ public class Driver {
         }
     }
 
-    public static void buyItem(List<Item> inventory, String itemName, int qty, int userPoints){
+    public static String buyItem(List<Item> inventory, String itemName, int qty, int userPoints){
+        String result = null;
         for (Item item : inventory){
             if (itemName.equals(item.getItemName())){
                 if(item.getItemStock() > 0 && qty > 0 ){
                     if (qty > item.getItemStock()){
-                        System.out.println("There's only " + item.getItemStock() + " of " + item.getItemName());
+                        System.out.println("[FAILED - BUY ITEM]: " + "Cannot buy " + qty + " " + item.getItemName() + "s. There's only " + item.getItemStock() + " of " + item.getItemName());
+                        result = "FailedNotEnoughItems";
                         break;
                     }
                     if (userPoints >= qty * item.getItemPoints()){
@@ -147,15 +147,19 @@ public class Driver {
                             System.out.println(qty + " " + item.getItemName() + "s have been purchased [" + dtf.format(now) + "]");
                         else
                             System.out.println(qty + " " + item.getItemName() +  " has been purchased [" + dtf.format(now) + "]");
-                        System.out.println(item.getItemName() + "'s current stock = " + item.getItemStock());
+                        System.out.println("[SUCCESS - BUY ITEM]: " + item.getItemName() + "'s current stock = " + item.getItemStock());
+                        result = "SuccessBuyingItem";
                     } else {
-                        System.out.println("Not enough points");
+                        System.out.println("[FAILED - BUY ITEM]: Not enough points to buy " + qty + " " + item.getItemName());
+                        result = "FailedNotEnoughPoints";
                     }
                 } else {
-                    System.out.println(item.getItemName() + " is sold out");
+                    System.out.println("[FAILED - BUY ITEM]: Cannot buy " + item.getItemName() + ". "+ item.getItemName() + " is sold out");
+                    result = "FailedItemSoldOut";
                 }
             }
         }
+        return result;
     }
 
 }
