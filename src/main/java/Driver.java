@@ -144,10 +144,10 @@ public class Driver {
                         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
                         LocalDateTime now = LocalDateTime.now();
                         if (qty > 1)
-                            System.out.println(qty + " " + item.getItemName() + "s have been purchased [" + dtf.format(now) + "]");
+                            System.out.println("[SUCCESS - BUY ITEM]: " + qty + " " + item.getItemName() + "s have been purchased [" + dtf.format(now) + "]");
                         else
-                            System.out.println(qty + " " + item.getItemName() +  " has been purchased [" + dtf.format(now) + "]");
-                        System.out.println("[SUCCESS - BUY ITEM]: " + item.getItemName() + "'s current stock = " + item.getItemStock());
+                            System.out.println("[SUCCESS - BUY ITEM]: " + qty + " " + item.getItemName() +  " has been purchased [" + dtf.format(now) + "]");
+                        System.out.println(item.getItemName() + "'s current stock = " + item.getItemStock());
                         result = "SuccessBuyingItem";
                     } else {
                         System.out.println("[FAILED - BUY ITEM]: Not enough points to buy " + qty + " " + item.getItemName());
